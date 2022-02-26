@@ -1,0 +1,4 @@
+<queries>
+	<query file="file1.csv" query="select * from book" />
+	<query file="file2.csv" query="select * from book" />
+</queries>

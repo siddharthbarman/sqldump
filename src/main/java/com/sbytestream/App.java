@@ -17,11 +17,11 @@ public class App {
         System.out.println("Queries speicifed in an XML file are executed and results are stored as csv file in the output folder.");
         System.out.println("See the sample queries files named queries.xml");
         System.out.println("Syntax:");
-        System.out.println("java -jar sqldump -i <input-queries-file> -o <output-folder> -c <connection-string> -d");
+        System.out.println("java -jar sqldump -i <input-queries-file> -o <output-folder> -c <connection-string> -h");
         System.out.println("-i specifies the XML file containing queries to execute.");
         System.out.println("-o specifies the folder where results will be stored");
         System.out.println("-c JDBC connection string to SQL Server");
-        System.out.println("-d optional. Default is true. If true write the column names as the header row");
+        System.out.println("-h optional. Default is false. If true write the column names as the header row");
         System.out.println("Sample connection string:");
         System.out.println("jdbc:sqlserver://SQLSVR1\\SQL2017;user=sa;password=password123;integratedSecurity=false;trustServerCertificate=true;DatabaseName=BookStore;");
     }
@@ -37,11 +37,6 @@ public class App {
 
         CmdLineParser cmd = new CmdLineParser(args);
         log(Level.INFO, cmd.toString());
-
-        if (cmd.hasFlag(FLAG_HELP)) {
-            help();
-            return;
-        }
 
         if (cmd.hasFlag(FLAG_CONN_STR)) {
             System.out.println("Connection string not specified.");
@@ -64,7 +59,7 @@ public class App {
         try {
             DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
             process(cmd.getParamValue(FLAG_QUERY_FILE), cmd.getParamValue(FLAG_OUT_FOLDER),
-                    cmd.getParamValue(FLAG_CONN_STR), cmd.getParamValueBoolean(FLAG_WRITE_HEADER, true));
+                    cmd.getParamValue(FLAG_CONN_STR), cmd.hasFlag(FLAG_WRITE_HEADER));
         }
         catch(Exception e) {
             System.out.println("Something went terribly wrong:");
@@ -153,11 +148,10 @@ public class App {
 
 
     private static Logger logger = LoggerFactory.getLogger(App.class);
-    private static final String FLAG_HELP = "h";
     private static final String FLAG_OUT_FOLDER = "o";
     private static final String FLAG_QUERY_FILE = "i";
     private static final String FLAG_CONN_STR = "c";
-    private static final String FLAG_WRITE_HEADER = "d";
+    private static final String FLAG_WRITE_HEADER = "h";
     private static final int WRITE_AFTER_LINE_COUNT = 100;
     private static final String logo = " ___  ___  _    ___  _ _  __ __  ___ \n" +
             "/ __>| . || |  | . \\| | ||  \\  \\| . \\\n" +

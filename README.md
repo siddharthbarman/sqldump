@@ -3,10 +3,12 @@ sqldump is a utility to run multiple queries against a database and store the ou
 
 ```xml
 <queries>
-	<query file="file1.csv" query="select * from book" />
-	<query file="file2.csv" query="select * from book" />
+	<query file="books.csv" query="select * from book" />
+	<query file="authors.csv" sqlfile="authors.sql" />
 </queries>
 ```
+
+The SQL query can either be written directly in the XML using the "query" attribute or the SQL statement can be stored in an external text file which is specified using the "sqlfile" node.
 
 
 

@@ -68,7 +68,7 @@ public class App {
         }
     }
 
-    private static void process(String queriesFilePath, String outputFolder, String connStr, boolean writeHeader) throws ParserConfigurationException, SAXException, IOException, SQLException {
+    private static void process(String queriesFilePath, String outputFolder, String connStr, boolean writeHeader) throws ParserConfigurationException, SAXException, IOException, SQLException, ApplicationException {
         QueryFileReader reader = new QueryFileReader();
 
         StopWatch stopWatch = new StopWatch();
@@ -145,7 +145,6 @@ public class App {
             }
         }
     }
-
 
     private static Logger logger = LoggerFactory.getLogger(App.class);
     private static final String FLAG_OUT_FOLDER = "o";

@@ -1,4 +1,4 @@
 <queries>
 	<query file="books.csv" query="select * from book" />
-	<query file="authors.csv" query="select * from author" />
+	<query file="authors.csv" sqlfile="authors.sql" />
 </queries>
